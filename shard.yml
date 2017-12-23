@@ -1,0 +1,9 @@
+name: truerandom
+version: 0.0.1
+
+authors:
+  - enra4 <cudcsb@gmail.com>
+
+crystal: 0.23.1
+
+license: MIT
