@@ -49,13 +49,13 @@ module Truerandom
 			yield decimal_fractions n, decimal_places, replacement
 		end
 
-		def gaussians(n, mean, stdDev, sigDig)
+		def gaussians(n, mean, std_dev, sig_dig)
 			body = build_body(@api_key, {
 				method: "generateGaussians",
 				n: n,
 				mean: mean,
-				standardDeviation: stdDev,
-				significantDigits: sigDig
+				standardDeviation: std_dev,
+				significantDigits: sig_dig
 			})
 
 			request(body) do |res|
@@ -63,8 +63,8 @@ module Truerandom
 			end
 		end
 
-		def gaussians(n, mean, stdDev, sigDig)
-			yield gaussians n, mean, stdDev, sigDig
+		def gaussians(n, mean, std_dev, sig_dig)
+			yield gaussians n, mean, std_dev, sig_dig
 		end
 
 		def strings(n, length, char, replacement = true)
