@@ -12,10 +12,10 @@ module Prettify
 
 		{
 			data: data,
-			completionTime: res.result.random.completionTime,
-			bitsUsed: res.result.bitsUsed,
-			requestsLeft: res.result.requestsLeft,
-			advisoryDelay: res.result.advisoryDelay
+			completion_time: res.result.random.completionTime,
+			bits_used: res.result.bitsUsed,
+			requests_left: res.result.requestsLeft,
+			advisory_delay: res.result.advisoryDelay
 		}
 	end
 end

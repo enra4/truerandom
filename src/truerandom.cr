@@ -126,11 +126,11 @@ module Truerandom
 
 					{
 						status: result.status,
-						creationTime: result.creationTime,
-						bitsLeft: result.bitsLeft,
-						requestsLeft: result.requestsLeft,
-						totalBits: result.totalBits,
-						totalRequests: result.totalRequests
+						creation_time: result.creationTime,
+						bits_left: result.bitsLeft,
+						requests_left: result.requestsLeft,
+						total_bits: result.totalBits,
+						total_requests: result.totalRequests
 					}
 				else
 					raise Exception.new("Something went wrong
