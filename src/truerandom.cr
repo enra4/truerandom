@@ -23,9 +23,6 @@ module Truerandom
 				base: base
 			})
 
-			data_type = String
-			data_type = Int32 if base == 10
-
 			request(body) do |res|
 				handle_response res
 			end
