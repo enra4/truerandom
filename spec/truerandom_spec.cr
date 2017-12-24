@@ -42,5 +42,16 @@ describe Truerandom do
 				res[:data].size.should eq 2
 			end
 		end
+
+		it "can get usage" do
+			usage = truerandom.usage
+
+			usage[:status].is_a?(String).should eq true
+			usage[:creation_time].is_a?(String).should eq true
+			usage[:bits_left].is_a?(Int32).should eq true
+			usage[:requests_left].is_a?(Int32).should eq true
+			usage[:total_bits].is_a?(Int32).should eq true
+			usage[:total_requests].is_a?(Int32).should eq true
+		end
 	end
 end
