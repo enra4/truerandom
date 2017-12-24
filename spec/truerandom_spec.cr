@@ -7,39 +7,58 @@ describe Truerandom do
 
 	describe "basic methods" do
 		it "can generate integers" do
-			truerandom.integers(2, 0, 10) do |res|
+			truerandom.integers({
+				"n" => 2,
+				"min" => 0,
+				"max" => 10
+			}) do |res|
 				# kind of hard to do testing with random input xd
-				basic_method_testing(res)
+				basic_method_testing res
 			end
 		end
 
 		it "can generate decimal fractions" do
-			truerandom.decimal_fractions(2, 5) do |res|
-				basic_method_testing(res)
+			truerandom.decimal_fractions({
+				"n" => 2,
+				"decimalPlaces" => 5
+			}) do |res|
+				basic_method_testing res
 			end
 		end
 
 		it "can generate gaussians" do
-			truerandom.gaussians(2, 0.0, 1.0, 8) do |res|
-				basic_method_testing(res)
+			truerandom.gaussians({
+				"n" => 2,
+				"mean" => 0.0,
+				"standardDeviation" => 1.0,
+				"significantDigits" => 8
+			}) do |res|
+				basic_method_testing res
 			end
 		end
 
 		it "can generate strings" do
-			truerandom.strings(2, 3, "abcd") do |res|
-				basic_method_testing(res)
+			truerandom.strings({
+				"n" => 2,
+				"length" => 3,
+				"characters" => "abcd"
+			}) do |res|
+				basic_method_testing res
 			end
 		end
 
 		it "can generate UUIDs" do
-			truerandom.uuids(2) do |res|
-				basic_method_testing(res)
+			truerandom.uuids({"n" => 2}) do |res|
+				basic_method_testing res
 			end
 		end
 
 		it "can generate blobs" do
-			truerandom.blobs(2, 64) do |res|
-				basic_method_testing(res)
+			truerandom.blobs({
+				"n" => 2,
+				"size" => 64
+			}) do |res|
+				basic_method_testing res
 			end
 		end
 

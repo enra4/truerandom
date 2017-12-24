@@ -9,116 +9,114 @@ include Request
 module Truerandom
 	struct Client
 		property api_key
+		alias OptionTypes = Int32 | Float32 | String | Bool
 
 		def initialize(@api_key : String)
 		end
 
-		def integers(n, min, max, replacement = true, base = 10)
-			body = build_body(@api_key, {
-				method: "generateIntegers",
-				n: n,
-				min: min,
-				max: max,
-				replacement: replacement,
-				base: base
-			})
+		def integers(options = {} of String => OptionTypes)
+			options = {
+				"method" => "generateIntegers",
+				"replacement" => true,
+				"base" => 10
+			}.merge(options)
+
+			body = build_body(@api_key, options)
 
 			request(body) do |res|
 				handle_response res
 			end
 		end
 
-		def integers(n, min, max, replacement = true, base = 10)
-			yield integers n, min, max, replacement, base
+		def integers(options = {} of String => OptionTypes)
+			yield integers options
 		end
 
-		def decimal_fractions(n, decimal_places, replacement = true)
-			body = build_body(@api_key, {
-				method: "generateDecimalFractions",
-				n: n,
-				decimalPlaces: decimal_places,
-				replacement: replacement
-			})
+		def decimal_fractions(options = {} of String => OptionTypes)
+			options = {
+				"method" => "generateDecimalFractions",
+				"replacement" => true,
+			}.merge(options)
+
+			body = build_body(@api_key, options)
 
 			request(body) do |res|
 				handle_response res
 			end
 		end
 
-		def decimal_fractions(n, decimal_places, replacement = true)
-			yield decimal_fractions n, decimal_places, replacement
+		def decimal_fractions(options = {} of String => OptionTypes)
+			yield decimal_fractions options
 		end
 
-		def gaussians(n, mean, std_dev, sig_dig)
-			body = build_body(@api_key, {
-				method: "generateGaussians",
-				n: n,
-				mean: mean,
-				standardDeviation: std_dev,
-				significantDigits: sig_dig
-			})
+		def gaussians(options = {} of String => OptionTypes)
+			options = {
+				"method" => "generateGaussians"
+			}.merge(options)
+
+			body = build_body(@api_key, options)
 
 			request(body) do |res|
 				handle_response res
 			end
 		end
 
-		def gaussians(n, mean, std_dev, sig_dig)
-			yield gaussians n, mean, std_dev, sig_dig
+		def gaussians(options = {} of String => OptionTypes)
+			yield gaussians options
 		end
 
-		def strings(n, length, char, replacement = true)
-			body = build_body(@api_key, {
-				method: "generateStrings",
-				n: n,
-				length: length,
-				characters: char,
-				replacement: replacement
-			})
+		def strings(options = {} of String => OptionTypes)
+			options = {
+				"method" => "generateStrings",
+				"replacement" => true
+			}.merge(options)
+
+			body = build_body(@api_key, options)
 
 			request(body) do |res|
 				handle_response res
 			end
 		end
 
-		def strings(n, length, char, replacement = true)
-			yield strings n, length, char, replacement
+		def strings(options = {} of String => OptionTypes)
+			yield strings options
 		end
 
-		def uuids(n)
-			body = build_body(@api_key, {
-				method: "generateUUIDs",
-				n: n
-			})
+		def uuids(options = {} of String => OptionTypes)
+			options = {
+				"method" => "generateUUIDs"
+			}.merge(options)
+
+			body = build_body(@api_key, options)
 
 			request(body) do |res|
 				handle_response res
 			end
 		end
 
-		def uuids(n)
-			yield uuids n
+		def uuids(options = {} of String => OptionTypes)
+			yield uuids options
 		end
 
-		def blobs(n, size, forma = "base64")
-			body = build_body(@api_key, {
-				method: method = "generateBlobs",
-				n: n,
-				size: size,
-				format: forma
-			})
+		def blobs(options = {} of String => OptionTypes)
+			options = {
+				"method" => "generateBlobs",
+				"format" => "base64"
+			}.merge(options)
+
+			body = build_body(@api_key, options)
 
 			request(body) do |res|
 				handle_response res
 			end
 		end
 
-		def blobs(n, size, forma = "base64")
-			yield blobs n, size, forma
+		def blobs(options = {} of String => OptionTypes)
+			yield blobs options
 		end
 
 		def usage
-			body = build_body(@api_key, {method: "getUsage"})
+			body = build_body(@api_key, {"method" => "getUsage"})
 
 			request(body) do |res|
 				if res.status_code == 200
