@@ -73,6 +73,64 @@ describe Truerandom do
 			usage[:total_requests].is_a?(Int32).should eq true
 		end
 	end
+
+	describe "signed methods" do
+		it "can generate signed integers" do
+			truerandom.integers({
+				"n" => 2,
+				"min" => 0,
+				"max" => 10
+			}, true) do |res|
+				# kind of hard to do testing with random input xd
+				signed_method_testing res
+			end
+		end
+
+		it "can generate signed decimal fractions" do
+			truerandom.decimal_fractions({
+				"n" => 2,
+				"decimalPlaces" => 5
+			}, true) do |res|
+				signed_method_testing res
+			end
+		end
+
+		it "can generate signed gaussians" do
+			truerandom.gaussians({
+				"n" => 2,
+				"mean" => 0.0,
+				"standardDeviation" => 1.0,
+				"significantDigits" => 8
+			}, true) do |res|
+				signed_method_testing res
+			end
+		end
+
+		it "can generate signed strings" do
+			truerandom.strings({
+				"n" => 2,
+				"length" => 3,
+				"characters" => "abcd"
+			}, true) do |res|
+				signed_method_testing res
+			end
+		end
+
+		it "can generate signed UUIDs" do
+			truerandom.uuids({"n" => 2}, true) do |res|
+				signed_method_testing res
+			end
+		end
+
+		it "can generate signed blobs" do
+			truerandom.blobs({
+				"n" => 2,
+				"size" => 64
+			}, true) do |res|
+				signed_method_testing res
+			end
+		end
+	end
 end
 
 def basic_method_testing(res)
@@ -82,4 +140,10 @@ def basic_method_testing(res)
 	typeof(res[:bits_used]).should eq Int32
 	typeof(res[:requests_left]).should eq Int32
 	typeof(res[:advisory_delay]).should eq Int32
+end
+
+def signed_method_testing(res)
+	basic_method_testing res
+	typeof(res[:hashed_api_key]).should eq(String | Nil)
+	typeof(res[:signature]).should eq(String | Nil)
 end
