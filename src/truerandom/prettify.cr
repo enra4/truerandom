@@ -7,6 +7,8 @@ module Prettify
 
 		{
 			data: data,
+			hashed_api_key: nil,
+			signature: nil,
 			completion_time: res.result.random.completionTime,
 			bits_used: res.result.bitsUsed,
 			requests_left: res.result.requestsLeft,
