@@ -47,4 +47,46 @@ module Mapping
 			totalRequests: Int32
 		)
 	end
+
+	struct SignedResponse
+		JSON.mapping(
+			jsonrpc: String,
+			result: {type: SignedResult},
+			id: Int32
+		)
+	end
+
+	struct SignedResult
+		JSON.mapping(
+			random: {type: SignedRndm},
+			signature: String,
+			bitsUsed: Int32,
+			bitsLeft: Int32,
+			requestsLeft: Int32,
+			advisoryDelay: Int32
+		)
+	end
+
+	struct SignedRndm
+		JSON.mapping(
+			method: String,
+			hashedApiKey: String,
+			n: Int32,
+			min: Int32 | Float32 | Nil,
+			max: Int32 | Float32 | Nil,
+			decimalPlaces: Int32 | Float32 | Nil,
+			mean: Int32 | Float32 | Nil,
+			standardDeviation: Int32 | Float32 | Nil,
+			significantDigits: Int32 | Float32 | Nil,
+			length: Int32 | Nil,
+			characters: String | Nil,
+			size: Int32 | Nil,
+			format: String | Nil,
+			replacement: Bool | Nil,
+			base: Int32 | Nil,
+			data: Array(Int32 | Float32 | String),
+			completionTime: String,
+			serialNumber: Int32
+		)
+	end
 end

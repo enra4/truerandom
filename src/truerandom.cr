@@ -2,8 +2,6 @@ require "./truerandom/*"
 
 include BuildBody
 include HandleResponse
-include Mapping
-include Prettify
 include Request
 
 module Truerandom
@@ -14,105 +12,123 @@ module Truerandom
 		def initialize(@api_key : String)
 		end
 
-		def integers(options = {} of String => OptionTypes)
+		def integers(options = {} of String => OptionTypes, signed = false)
+			method = "generateIntegers"
+			method = "generateSignedIntegers" if signed
+
 			options = {
-				"method" => "generateIntegers",
+				"method" => method,
 				"replacement" => true,
 				"base" => 10
 			}.merge(options)
 
-			body = build_body(@api_key, options)
+			body = build_body @api_key, options
 
 			request(body) do |res|
-				handle_response res
+				handle_response res, signed
 			end
 		end
 
-		def integers(options = {} of String => OptionTypes)
-			yield integers options
+		def integers(options = {} of String => OptionTypes, signed = false)
+			yield integers options, signed
 		end
 
-		def decimal_fractions(options = {} of String => OptionTypes)
+		def decimal_fractions(options = {} of String => OptionTypes, signed = false)
+			method = "generateDecimalFractions"
+			method = "generateSignedDecimalFractions" if signed
+
 			options = {
-				"method" => "generateDecimalFractions",
+				"method" => method,
 				"replacement" => true,
 			}.merge(options)
 
-			body = build_body(@api_key, options)
+			body = build_body @api_key, options
 
 			request(body) do |res|
-				handle_response res
+				handle_response res, signed
 			end
 		end
 
-		def decimal_fractions(options = {} of String => OptionTypes)
-			yield decimal_fractions options
+		def decimal_fractions(options = {} of String => OptionTypes, signed = false)
+			yield decimal_fractions options, signed
 		end
 
-		def gaussians(options = {} of String => OptionTypes)
+		def gaussians(options = {} of String => OptionTypes, signed = false)
+			method = "generateGaussians"
+			method = "generateSignedGaussians" if signed
+
 			options = {
-				"method" => "generateGaussians"
+				"method" => method
 			}.merge(options)
 
-			body = build_body(@api_key, options)
+			body = build_body @api_key, options
 
 			request(body) do |res|
-				handle_response res
+				handle_response res, signed
 			end
 		end
 
-		def gaussians(options = {} of String => OptionTypes)
-			yield gaussians options
+		def gaussians(options = {} of String => OptionTypes, signed = false)
+			yield gaussians options, signed
 		end
 
-		def strings(options = {} of String => OptionTypes)
+		def strings(options = {} of String => OptionTypes, signed = false)
+			method = "generateStrings"
+			method = "generateSignedStrings" if signed
+
 			options = {
-				"method" => "generateStrings",
+				"method" => method,
 				"replacement" => true
 			}.merge(options)
 
-			body = build_body(@api_key, options)
+			body = build_body @api_key, options
 
 			request(body) do |res|
-				handle_response res
+				handle_response res, signed
 			end
 		end
 
-		def strings(options = {} of String => OptionTypes)
-			yield strings options
+		def strings(options = {} of String => OptionTypes, signed = false)
+			yield strings options, signed
 		end
 
-		def uuids(options = {} of String => OptionTypes)
+		def uuids(options = {} of String => OptionTypes, signed = false)
+			method = "generateUUIDs"
+			method = "generateSignedUUIDs" if signed
+
 			options = {
-				"method" => "generateUUIDs"
+				"method" => method
 			}.merge(options)
 
-			body = build_body(@api_key, options)
+			body = build_body @api_key, options
 
 			request(body) do |res|
-				handle_response res
+				handle_response res, signed
 			end
 		end
 
-		def uuids(options = {} of String => OptionTypes)
-			yield uuids options
+		def uuids(options = {} of String => OptionTypes, signed = false)
+			yield uuids options, signed
 		end
 
-		def blobs(options = {} of String => OptionTypes)
+		def blobs(options = {} of String => OptionTypes, signed = false)
+			method = "generateBlobs"
+			method = "generateSignedBlobs" if signed
+
 			options = {
-				"method" => "generateBlobs",
+				"method" => method,
 				"format" => "base64"
 			}.merge(options)
 
-			body = build_body(@api_key, options)
+			body = build_body @api_key, options
 
 			request(body) do |res|
-				handle_response res
+				handle_response res, signed
 			end
 		end
 
-		def blobs(options = {} of String => OptionTypes)
-			yield blobs options
+		def blobs(options = {} of String => OptionTypes, signed = false)
+			yield blobs options, signed
 		end
 
 		def usage
