@@ -53,6 +53,7 @@ The return of the basic methods will look something like this
 ```
 Signed methods will also include ``:hashed_api_key`` and ``:signature``
 If you want to call on a signed method, simply call the same method with an extra argument that has the value ``true``.
+
 Example:
 ```crystal
 truerandom.integers({
@@ -97,7 +98,7 @@ Generates true random strings
 #### `options`
 - `options["n"]` - How many random values you want
 - `options["length"]` - The length of each string
-- `options["characters"]` - A string that contains the set of characters that are allowed to occur in the random strings.
+- `options["characters"]` - A string that contains the set of characters that are allowed to occur in the random strings
 - `options["replacement"]` - (defaults to ``true``)  - Specifies whether the generated integers can be duplicates
 
 
@@ -115,10 +116,10 @@ Generates BLOBs containing true random data
 - `options["size"]` - The size of each blob, measured in bits
 
 ### __`.usage`__
-Returns information related to the usage of your api key.
+Returns information related to the usage of your api key
 
 #### contains
--`:status` - Current status
+- `:status` - Current status
 - `:creation_time` - When your api key was created
 - `:bits_left` - Number of remaining true random bits available to the client
 - `:requests_left` - Number of requests left available to the client
