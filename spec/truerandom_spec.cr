@@ -1,6 +1,7 @@
 require "./spec_helper"
 
-API_KEY = ""
+# change this value if you want to test with your own api key
+API_KEY = ENV["API_KEY"]
 
 describe Truerandom do
 	truerandom = Truerandom::Client.new API_KEY
