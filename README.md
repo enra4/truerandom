@@ -1,5 +1,7 @@
 # truerandom
 
+[![build](https://travis-ci.org/enra4/truerandom.svg?branch=master)](https://travis-ci.org/enra4/truerandom)
+
 api wrapper for random.org
 
 ## Installation
