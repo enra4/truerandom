@@ -4,7 +4,7 @@ require "./spec_helper"
 API_KEY = ENV["API_KEY"]
 
 describe Truerandom do
-	truerandom = Truerandom::Client.new API_KEY
+	truerandom = Truerandom::Client.new(API_KEY)
 
 	describe "basic methods" do
 		it "can generate integers" do
@@ -14,7 +14,7 @@ describe Truerandom do
 				"max" => 10
 			}) do |res|
 				# kind of hard to do testing with random input xd
-				basic_method_testing res
+				basic_method_testing(res)
 			end
 		end
 
@@ -23,7 +23,7 @@ describe Truerandom do
 				"n" => 2,
 				"decimalPlaces" => 5
 			}) do |res|
-				basic_method_testing res
+				basic_method_testing(res)
 			end
 		end
 
@@ -34,7 +34,7 @@ describe Truerandom do
 				"standardDeviation" => 1.0,
 				"significantDigits" => 8
 			}) do |res|
-				basic_method_testing res
+				basic_method_testing(res)
 			end
 		end
 
@@ -44,13 +44,13 @@ describe Truerandom do
 				"length" => 3,
 				"characters" => "abcd"
 			}) do |res|
-				basic_method_testing res
+				basic_method_testing(res)
 			end
 		end
 
 		it "can generate UUIDs" do
 			truerandom.uuids({"n" => 2}) do |res|
-				basic_method_testing res
+				basic_method_testing(res)
 			end
 		end
 
@@ -59,19 +59,19 @@ describe Truerandom do
 				"n" => 2,
 				"size" => 64
 			}) do |res|
-				basic_method_testing res
+				basic_method_testing(res)
 			end
 		end
 
 		it "can get usage" do
 			usage = truerandom.usage
 
-			usage[:status].is_a?(String).should eq true
-			usage[:creation_time].is_a?(String).should eq true
-			usage[:bits_left].is_a?(Int32).should eq true
-			usage[:requests_left].is_a?(Int32).should eq true
-			usage[:total_bits].is_a?(Int32).should eq true
-			usage[:total_requests].is_a?(Int32).should eq true
+			usage[:status].is_a?(String).should(be_true)
+			usage[:creation_time].is_a?(String).should(be_true)
+			usage[:bits_left].is_a?(Int32).should(be_true)
+			usage[:requests_left].is_a?(Int32).should(be_true)
+			usage[:total_bits].is_a?(Int32).should(be_true)
+			usage[:total_requests].is_a?(Int32).should(be_true)
 		end
 	end
 
@@ -83,7 +83,7 @@ describe Truerandom do
 				"max" => 10
 			}, true) do |res|
 				# kind of hard to do testing with random input xd
-				signed_method_testing res
+				signed_method_testing(res)
 			end
 		end
 
@@ -92,7 +92,7 @@ describe Truerandom do
 				"n" => 2,
 				"decimalPlaces" => 5
 			}, true) do |res|
-				signed_method_testing res
+				signed_method_testing(res)
 			end
 		end
 
@@ -103,7 +103,7 @@ describe Truerandom do
 				"standardDeviation" => 1.0,
 				"significantDigits" => 8
 			}, true) do |res|
-				signed_method_testing res
+				signed_method_testing(res)
 			end
 		end
 
@@ -113,13 +113,13 @@ describe Truerandom do
 				"length" => 3,
 				"characters" => "abcd"
 			}, true) do |res|
-				signed_method_testing res
+				signed_method_testing(res)
 			end
 		end
 
 		it "can generate signed UUIDs" do
 			truerandom.uuids({"n" => 2}, true) do |res|
-				signed_method_testing res
+				signed_method_testing(res)
 			end
 		end
 
@@ -128,23 +128,23 @@ describe Truerandom do
 				"n" => 2,
 				"size" => 64
 			}, true) do |res|
-				signed_method_testing res
+				signed_method_testing(res)
 			end
 		end
 	end
 end
 
 def basic_method_testing(res)
-	res[:data].size.should eq 2
-	typeof(res[:data]).should eq Array(String)
-	typeof(res[:completion_time]).should eq String
-	typeof(res[:bits_used]).should eq Int32
-	typeof(res[:requests_left]).should eq Int32
-	typeof(res[:advisory_delay]).should eq Int32
+	res[:data].size.should(eq(2))
+	res[:data].is_a?(Array(String)).should(be_true)
+	res[:completion_time].is_a?(String).should(be_true)
+	res[:bits_used].is_a?(Int32).should(be_true)
+	res[:requests_left].is_a?(Int32).should(be_true)
+	res[:advisory_delay].is_a?(Int32).should(be_true)
 end
 
 def signed_method_testing(res)
-	basic_method_testing res
-	typeof(res[:hashed_api_key]).should eq(String | Nil)
-	typeof(res[:signature]).should eq(String | Nil)
+	basic_method_testing(res)
+	res[:hashed_api_key].is_a?(String | Nil).should(be_true)
+	res[:signature].is_a?(String | Nil).should(be_true)
 end
